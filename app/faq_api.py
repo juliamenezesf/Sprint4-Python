@@ -2,31 +2,39 @@
 import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from . import database_oracle as db  # seu arquivo de banco
+from . import database_oracle as db
 
 app = Flask(__name__)
 
-# Origens permitidas: múltiplas separadas por vírgula na env FRONTEND_ORIGIN
-origins = [o.strip() for o in os.getenv(
+raw = os.getenv(
     "FRONTEND_ORIGIN",
-    "http://localhost:5173,http://127.0.0.1:5173"
-).split(",") if o.strip()]
+    "http://localhost:5173,http://127.0.0.1:5173",
+)
 
-# CORS para rotas /api/*
-CORS(app, resources={r"/api/*": {"origins": origins, "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"]}})
+_clean = raw.replace("\r", "").replace("\n", "")
+origins = [o.strip() for o in _clean.split(",") if o.strip()]
 
-# Reforço de CORS (preflight/headers)
+# Aplica CORS somente em /api/* e libera métodos comuns
+CORS(app, resources={
+    r"/api/*": {
+        "origins": origins if origins else "*",
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type"],
+    }
+})
+
+# Reforço de cabeçalhos (útil para alguns proxies/CDNs)
 @app.after_request
 def add_cors_headers(resp):
     origin = request.headers.get("Origin")
-    if origin and origin in origins:
+    if origin and (origin in origins or not origins):
         resp.headers["Access-Control-Allow-Origin"] = origin
         resp.headers["Vary"] = "Origin"
         resp.headers["Access-Control-Allow-Headers"] = "Content-Type"
         resp.headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
     return resp
 
-# Healthcheck (resolve o 404 do "/")
+# Healthcheck
 @app.get("/")
 def home():
     return {"status": "ok", "service": "faq-api", "allowed_origins": origins}, 200
@@ -47,18 +55,14 @@ def faqs_create():
 def faqs_update():
     dado = request.get_json(force=True)
     ok = db.atualizar_faq(int(dado["id"]), dado.get("pergunta"), dado.get("resposta"))
-    if ok:
-        return jsonify(dado), 200
-    return jsonify({"title": "FAQ não encontrada", "status": 404}), 404
+    return (jsonify(dado), 200) if ok else (jsonify({"title": "FAQ não encontrada", "status": 404}), 404)
 
 @app.delete("/api/faqs/<int:fid>")
 def faqs_delete(fid):
     ok = db.remover_faq(fid)
-    if ok:
-        return jsonify({"id": fid}), 200
-    return jsonify({"title": "FAQ não encontrada", "status": 404}), 404
+    return (jsonify({"id": fid}), 200) if ok else (jsonify({"title": "FAQ não encontrada", "status": 404}), 404)
 
-# Debug opcional: lista rotas registradas
+# Rota de debug (lista as rotas registradas)
 @app.get("/__routes")
 def routes():
     return jsonify(sorted([str(r) for r in app.url_map.iter_rules()])), 200
