@@ -6,22 +6,6 @@ Pedro Costa - RM559932
 
 Este projeto entrega um CRUD completo integrado ao Oracle, exposto por API Flask, consumido pelo front React (Vite + TS) e com console (menus/submenus) + exportação JSON + API pública.
 
-📁 Estrutura
-.
-├─ app/
-│  ├─ database_oracle.py   # CRUD + conexão Oracle (SQLAlchemy + oracledb)
-│  ├─ faq_api.py           # API Flask (endpoints /api/faqs)
-│  ├─ console_faq.py       # Console com menus: CRUD + export JSON + API pública
-│  ├─ external_api.py      # Cliente da API pública (Advice Slip)
-│  └─ __init__.py
-├─ frontend/               # Seu front React + Vite + TS
-├─ sql/
-│  ├─ 01_create_faqs.sql   # script de criação da tabela
-│  └─ 02_seed_faqs.sql     # dados de exemplo (opcional)
-├─ requirements.txt
-├─ PASSO_A_PASSO_AVALIACAO.pdf
-└─ README.md
-
 ✅ Requisitos cobertos
 
 [10 pts] Menus/submenus CRUD: python -m app.console_faq
