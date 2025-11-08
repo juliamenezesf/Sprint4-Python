@@ -1,5 +1,9 @@
 Sprint 4 — CRUD Python + Oracle + API Flask 
 
+Integrantes:
+Júlia Menezes - RM565568
+Pedro Costa - RM559932
+
 Este projeto entrega um CRUD completo integrado ao Oracle, exposto por API Flask, consumido pelo front React (Vite + TS) e com console (menus/submenus) + exportação JSON + API pública.
 
 📁 Estrutura
@@ -26,9 +30,6 @@ Este projeto entrega um CRUD completo integrado ao Oracle, exposto por API Flask
 
 [20 pts] API pública: “Conselho do dia” (Advice Slip) salvo como FAQ
 
-[10 pts] Reflexo no front: React consome API /api/faqs (cria/exclui e reflete no banco)
-
-Vídeo (até 7 min): roteiro sugerido no PDF
 
 🔧 Pré-requisitos
 
@@ -106,32 +107,6 @@ Menu:
 
 O export gera faqs_export.json na raiz.
 
-🌐 Front-end (React + Vite + TS)
-
-No frontend/:
-
-.env:
-
-VITE_API_URL=http://127.0.0.1:5000
-
-
-Rodar:
-
-npm install
-npm run dev
-# http://localhost:5173/faq
-
-Página FAQ (conceito)
-
-FAQs oficiais (fixas) renderizadas normalmente.
-
-Contribuições (vindas do Oracle via API):
-
-Form “Contribua para nosso site” → POST em /api/faqs
-
-Lista contribuições e permite excluir (DELETE)
-
-Ao atualizar a página, os dados vêm da API (reflexo com o banco)
 
 🧪 Testes rápidos (PowerShell)
 # criar
@@ -154,23 +129,3 @@ CORS no front: verifique CORS(app, origins=["http://localhost:5173","http://127.
 Not Found em /: a API só responde em /api/faqs (raiz não tem rota).
 
 before_first_request: removido no Flask 3 — usamos db.init_db() no carregamento.
-
-📦 O que entregar no ZIP
-
-app/
-
-frontend/
-
-sql/01_create_faqs.sql e sql/02_seed_faqs.sql
-
-requirements.txt
-
-PASSO_A_PASSO_AVALIACAO.pdf
-
-participantes.txt (nomes + link do vídeo)
-
-🔒 Segurança
-
-Sem credenciais no repositório.
-
-Usar .env local (ou variável de ambiente) para DATABASE_URL.
