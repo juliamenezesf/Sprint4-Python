@@ -1,17 +1,32 @@
 [
   {
-    "id": 2,
-    "pergunta": "O app é gratuito?",
-    "resposta": "Sim, a versão básica é gratuita."
+    "id": 14,
+    "pergunta": "Como marcar consulta?",
+    "resposta": "Acesse o Portal do Paciente em Como Acessar."
   },
   {
-    "id": 3,
-    "pergunta": "O app é gratuito?",
-    "resposta": "Sim, a versão básica é gratuita."
+    "id": 15,
+    "pergunta": "Preciso de cadastro?",
+    "resposta": "Sim. Cadastre-se com CPF e um contato válido."
   },
   {
-    "id": 4,
-    "pergunta": "Como troco a minha senha?",
-    "resposta": "Para trocar sua senha entre em contato com a equipe"
+    "id": 16,
+    "pergunta": "Posso falar com atendente?",
+    "resposta": "Use a página Contato para enviar sua mensagem."
+  },
+  {
+    "id": 17,
+    "pergunta": "Oi",
+    "resposta": "Oi"
+  },
+  {
+    "id": 18,
+    "pergunta": "Como agendar?",
+    "resposta": "Pelo portal do paciente."
+  },
+  {
+    "id": 19,
+    "pergunta": "W",
+    "resposta": "W"
   }
 ]

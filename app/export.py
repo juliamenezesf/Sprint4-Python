@@ -1,11 +1,12 @@
 # app/export.py
-import json, os
-from . import db_oracle as db
+import json
+from . import database_oracle as db
 
-def exportar_json() -> str:
-    os.makedirs("exports", exist_ok=True)
-    data = {"faqs": db.listar_faqs()}
-    path = os.path.join("exports", "faqs_dump.json")
+def run(path="faqs_export.json"):
+    data = db.listar_faqs()
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-    return path
+    print(f"Exportado: {path} ({len(data)} registros)")
+
+if __name__ == "__main__":
+    run()
