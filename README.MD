@@ -37,11 +37,7 @@ $env:FRONTEND_ORIGIN = "http://localhost:5173,http://127.0.0.1:5173"
 
 ## 🧱 2️⃣ Criar a tabela FAQ no banco Oracle
 
-### Opção A — Automático
-
-A tabela é criada automaticamente quando você roda a API (`faq_api.py` chama `db.init_db()`).
-
-### Opção B — Manual (no SQL Developer)
+### Manual (no SQL Developer)
 
 ```sql
 CREATE TABLE FAQS (
@@ -82,6 +78,8 @@ Running on http://127.0.0.1:5000
 ## 🧪 4️⃣ Testar a API com Invoke-RestMethod
 
 ### 🩺 Verificar se está online
+
+Com a API rodando em um terminal, abra outro terminal Powershell e execute:
 
 ```powershell
 Invoke-RestMethod -Uri http://127.0.0.1:5000/
@@ -130,7 +128,10 @@ Invoke-RestMethod -Method Delete -Uri http://127.0.0.1:5000/api/faqs/1
 
 ## 🖥️ 5️⃣ Usar o Console FAQ (modo texto)
 
-Execute:
+Com a API rodando em um terminal, abra outro terminal Powershell e execute:
+
+$env:DATABASE_URL = "oracle+oracledb://USUARIO:SENHA@oracle.fiap.com.br:1521/ORCL"
+$env:FRONTEND_ORIGIN = "http://localhost:5173,http://127.0.0.1:5173"
 
 ```powershell
 python -m app.console_faq
